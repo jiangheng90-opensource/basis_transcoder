@@ -70,3 +70,7 @@ cargo run --example decode_to_png -- testdata/texture_0.ktx2
 ## CI
 
 GitHub Actions (`.github/workflows/ci.yml`): fmt/clippy/check + tests on ubuntu/macos/windows, JS bundle tests and rebuild, wasm32 check + wasm-pack build, release build.
+
+## License
+
+Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option.
