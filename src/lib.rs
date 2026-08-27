@@ -88,8 +88,8 @@ mod tests {
         }
 
         // The decode must not be a solid color.
-        let first = &level0.data[0..4];
-        assert!(level0.data.chunks_exact(4).any(|p| p != first));
+        let first: &[u8; 4] = level0.data[0..4].try_into().unwrap();
+        assert!(level0.data.as_chunks::<4>().0.iter().any(|p| p != first));
     }
 
     #[tokio::test]
