@@ -17,7 +17,9 @@ fn main() {
         .include("third_party/basis_universal/transcoder")
         // Zstd-supercompressed KTX2 levels are not supported (avoids a zstd dependency).
         .define("BASISD_SUPPORT_KTX2_ZSTD", "0")
-        .flag_if_supported("-std=c++17")
+        // cc picks the right C++17 flag per compiler (/std:c++17 on MSVC,
+        // -std=c++17 elsewhere).
+        .std("c++17")
         .flag_if_supported("-fvisibility=hidden")
         .flag_if_supported("-fno-strict-aliasing")
         .flag_if_supported("-Wno-unused-parameter")
