@@ -1,0 +1,12 @@
+{
+    "author": "https://github.com/jiangheng90/",
+    "scripts": {
+        "clippy": "cargo clippy --all-targets --all-features",
+        "test:native": "cargo test --workspace --all-features",
+        "test:js": "npm --prefix third_party/basis_transcoder_js test",
+        "test": "npm run test:native && npm run test:js",
+        "build": "node tools/build.js",
+        "package": "npm run build && cargo package --allow-dirty --no-verify",
+        "publish": "npm run package && cargo publish --allow-dirty --no-verify"
+    }
+}

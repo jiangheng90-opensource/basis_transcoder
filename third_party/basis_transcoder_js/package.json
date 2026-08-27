@@ -1,0 +1,31 @@
+{
+  "name": "basis_transcoder_js",
+  "description": "Self-contained ES bundle of the official Basis Universal KTX2 transcoder (Emscripten build), decoded in a dedicated inline Web Worker.",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.es.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "test": "node --test test/transcode.test.mjs"
+  },
+  "keywords": [],
+  "author": "jiang heng",
+  "license": "MIT&APACHE2.0",
+  "dependencies": {
+    "basis_transcoder": "file:./basis_transcoder"
+  },
+  "devDependencies": {
+    "vite": "^7.0.6"
+  }
+}

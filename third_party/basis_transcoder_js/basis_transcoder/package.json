@@ -1,0 +1,15 @@
+{
+  "name": "basis_transcoder",
+  "description": "Official precompiled Basis Universal transcoder (Emscripten build), vendored from third_party/basis_universal/webgl/transcoder/build. The two artifacts are synced by tools/build.js.",
+  "version": "0.1.0",
+  "main": "basis_transcoder.js",
+  "exports": {
+    ".": "./basis_transcoder.js",
+    "./basis_transcoder.wasm": "./basis_transcoder.wasm"
+  },
+  "files": [
+    "basis_transcoder.js",
+    "basis_transcoder.wasm"
+  ],
+  "license": "Apache-2.0"
+}
