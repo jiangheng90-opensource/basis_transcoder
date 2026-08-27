@@ -95,14 +95,26 @@ pub fn transcode_ktx2(data: &[u8], target: TargetFormat) -> Option<TranscodedTex
     let mut levels = Vec::with_capacity(info.levels as usize);
     for level in 0..info.levels {
         let (mut width, mut height) = (0u32, 0u32);
-        let size = cpp::get_level_output_size(&transcoder, level, target.as_u32(), &mut width, &mut height);
+        let size = cpp::get_level_output_size(
+            &transcoder,
+            level,
+            target.as_u32(),
+            &mut width,
+            &mut height,
+        );
         if size == 0 {
             return None;
         }
 
         let mut buffer = vec![0u8; size];
         let ok = unsafe {
-            cpp::transcode_level(&transcoder, level, target.as_u32(), buffer.as_mut_ptr(), buffer.len())
+            cpp::transcode_level(
+                &transcoder,
+                level,
+                target.as_u32(),
+                buffer.as_mut_ptr(),
+                buffer.len(),
+            )
         };
         if !ok {
             return None;

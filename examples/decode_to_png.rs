@@ -51,6 +51,11 @@ fn main() {
             image::ExtendedColorType::Rgba8,
         )
         .unwrap_or_else(|e| panic!("failed to write {}: {e}", path.display()));
-        println!("wrote {} ({}x{})", path.display(), level.width, level.height);
+        println!(
+            "wrote {} ({}x{})",
+            path.display(),
+            level.width,
+            level.height
+        );
     }
 }

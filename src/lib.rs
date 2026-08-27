@@ -105,7 +105,11 @@ mod tests {
 
     #[tokio::test]
     async fn test_reject_garbage() {
-        assert!(transcode_ktx2(b"not a ktx2 file", TargetFormat::Rgba32).await.is_none());
+        assert!(
+            transcode_ktx2(b"not a ktx2 file", TargetFormat::Rgba32)
+                .await
+                .is_none()
+        );
         assert!(transcode_ktx2(&[], TargetFormat::Rgba32).await.is_none());
     }
 }

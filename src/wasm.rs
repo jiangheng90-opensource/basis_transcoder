@@ -77,14 +77,14 @@ async fn transcode_ktx2_from_embedded_js(
         is_video: get_u32(&out_obj, "isVideo")? != 0,
     };
 
-    let mips_array = js_sys::Reflect::get(&out_obj, &JsValue::from_str("mips"))?
-        .dyn_into::<Array>()?;
+    let mips_array =
+        js_sys::Reflect::get(&out_obj, &JsValue::from_str("mips"))?.dyn_into::<Array>()?;
 
     let mut levels = Vec::with_capacity(mips_array.length() as usize);
     for i in 0..mips_array.length() {
         let mip_obj = mips_array.get(i);
-        let data = js_sys::Reflect::get(&mip_obj, &JsValue::from_str("data"))?
-            .dyn_into::<Uint8Array>()?;
+        let data =
+            js_sys::Reflect::get(&mip_obj, &JsValue::from_str("data"))?.dyn_into::<Uint8Array>()?;
         levels.push(LevelData {
             width: get_u32(&mip_obj, "width")?,
             height: get_u32(&mip_obj, "height")?,
