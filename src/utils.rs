@@ -46,6 +46,29 @@ impl TargetFormat {
         self as u32
     }
 
+    /// Restores a target format from its raw value (worker transport).
+    pub fn from_u32(value: u32) -> Option<Self> {
+        Some(match value {
+            0 => Self::Etc1Rgb,
+            1 => Self::Etc2Rgba,
+            2 => Self::Bc1Rgb,
+            3 => Self::Bc3Rgba,
+            4 => Self::Bc4R,
+            5 => Self::Bc5Rg,
+            6 => Self::Bc7Rgba,
+            8 => Self::Pvrtc1_4Rgb,
+            9 => Self::Pvrtc1_4Rgba,
+            10 => Self::Astc4x4Rgba,
+            11 => Self::AtcRgb,
+            12 => Self::AtcRgba,
+            13 => Self::Rgba32,
+            14 => Self::Rgb565,
+            15 => Self::Bgr565,
+            16 => Self::Rgba4444,
+            _ => return None,
+        })
+    }
+
     /// Whether the output is plain pixels rather than compressed blocks.
     pub fn is_uncompressed(self) -> bool {
         matches!(
