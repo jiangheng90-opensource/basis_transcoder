@@ -55,6 +55,17 @@ pub async fn transcode_ktx2(data: &[u8], target: TargetFormat) -> Option<Transco
     wasm::transcode_ktx2_wasm_worker(data, target).await
 }
 
+/// Transcodes a KTX2 Basis Universal texture asynchronously in the CURRENT
+/// context (WASM) — no dedicated worker is spawned.
+///
+/// Intended for hosts that already run inside their own Web Worker (e.g. a
+/// worker pool): the transcode runs on the calling thread. On the main
+/// thread, prefer [`transcode_ktx2`], which offloads to a worker.
+#[cfg(target_arch = "wasm32")]
+pub async fn transcode_ktx2_local(data: &[u8], target: TargetFormat) -> Option<TranscodedTexture> {
+    wasm::transcode_ktx2_local(data, target).await
+}
+
 #[cfg(all(test, not(target_arch = "wasm32")))]
 mod tests {
     use super::*;

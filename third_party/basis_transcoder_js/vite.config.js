@@ -9,9 +9,16 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     build: {
         lib: {
-            entry: 'src/index.js',
+            entry: {
+                // Worker-hosted API (single dedicated worker, created lazily
+                // on first call).
+                index: 'src/index.js',
+                // Pure in-context transcode API — no worker. Embedded by
+                // hosts that already run inside their own worker.
+                core: 'src/basisCore.js',
+            },
             name: 'BasisTranscoderJS',
-            fileName: (format) => `index.${format}.js`,
+            fileName: (format, entryName) => `${entryName}.${format}.js`,
             formats: ['es'],
         },
         // Inline the wasm binary as a data: URL.
