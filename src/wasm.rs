@@ -70,7 +70,10 @@ fn get_u32(obj: &JsValue, key: &str) -> Result<u32, JsValue> {
 
 /// Parses the transcode result object `{ width, ..., mips: [...] }` into a
 /// [`TranscodedTexture`]. Shared by the worker-hosted and local paths.
-fn parse_transcoded_texture(out_obj: &JsValue, target: TargetFormat) -> Result<TranscodedTexture, JsValue> {
+fn parse_transcoded_texture(
+    out_obj: &JsValue,
+    target: TargetFormat,
+) -> Result<TranscodedTexture, JsValue> {
     let info = TextureInfo {
         width: get_u32(out_obj, "width")?,
         height: get_u32(out_obj, "height")?,
