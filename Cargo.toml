@@ -1,7 +1,7 @@
 [package]
 name = "basis_transcoder"
 authors = ["jiang heng <https://github.com/jiangheng90/"]
-version = "0.1.1"
+version = "0.1.2"
 description = "A Basis Universal KTX2 transcoder on rust, with native and WebAssembly support (wip)"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/jiangheng90-opensource/basis_transcoder"
