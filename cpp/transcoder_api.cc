@@ -3,6 +3,8 @@
 
 #include "basisu_transcoder.h"
 
+#include <mutex>
+
 Ktx2Transcoder::Ktx2Transcoder(std::unique_ptr<basist::ktx2_transcoder> t)
     : transcoder(std::move(t)) {}
 Ktx2Transcoder::~Ktx2Transcoder() = default;
@@ -12,8 +14,12 @@ std::unique_ptr<Ktx2Transcoder> create_transcoder(rust::Slice<const uint8_t> dat
     return nullptr;
   }
 
-  // Idempotent; safe to call for every file.
-  basist::basisu_transcoder_init();
+  // basisu_transcoder_init() is NOT thread-safe: it guards table
+  // initialization with a plain check-then-set on a static bool, so
+  // concurrent first calls (e.g. parallel tests) race and may transcode
+  // against half-initialized global tables. Serialize it.
+  static std::once_flag init_flag;
+  std::call_once(init_flag, [] { basist::basisu_transcoder_init(); });
 
   auto transcoder = std::make_unique<basist::ktx2_transcoder>();
   if (!transcoder->init(data.data(), static_cast<uint32_t>(data.size()))) {
