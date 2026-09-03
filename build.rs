@@ -9,14 +9,21 @@ fn main() {
         return;
     }
 
+    // Zstd decompression for zstd-supercompressed KTX2 levels (e.g. UASTC
+    // textures produced by `toktx --zcmp`). Compiled as C, decompression only.
+    cc::Build::new()
+        .file("third_party/basis_universal/zstd/zstddeclib.c")
+        .include("third_party/basis_universal/zstd")
+        .compile("basis_transcoder_zstd");
+
     let mut build = cxx_build::bridge("src/ffi.rs");
     build
         .file("cpp/transcoder_api.cc")
         .file("third_party/basis_universal/transcoder/basisu_transcoder.cpp")
         .include("include")
         .include("third_party/basis_universal/transcoder")
-        // Zstd-supercompressed KTX2 levels are not supported (avoids a zstd dependency).
-        .define("BASISD_SUPPORT_KTX2_ZSTD", "0")
+        .include("third_party/basis_universal/zstd")
+        .define("BASISD_SUPPORT_KTX2_ZSTD", "1")
         // cc picks the right C++17 flag per compiler (/std:c++17 on MSVC,
         // -std=c++17 elsewhere).
         .std("c++17")
