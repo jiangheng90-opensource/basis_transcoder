@@ -1,7 +1,7 @@
 [package]
 name = "basis_transcoder"
 authors = ["jiang heng <https://github.com/jiangheng90/"]
-version = "0.1.2"
+version = "0.1.3"
 description = "A Basis Universal KTX2 transcoder on rust, with native and WebAssembly support (wip)"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/jiangheng90-opensource/basis_transcoder"
@@ -15,6 +15,7 @@ include = [
     "javascript/index.es.js",
     "javascript/core.es.js",
     "third_party/basis_universal/transcoder/**",
+    "third_party/basis_universal/zstd/**",
     "testdata/texture_0.ktx2",
     "examples/decode_to_png.rs",
     "/README.md",

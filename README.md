@@ -4,7 +4,7 @@ Rust library for transcoding KTX2 [Basis Universal](https://github.com/BinomialL
 
 ## How it works
 
-- **Native**: `cxx` FFI over the vendored `basis_universal` transcoder (git submodule, `v2_50`). Only the transcoder is compiled (`transcoder/basisu_transcoder.cpp`); the encoder is not. zstd-supercompressed KTX2 levels are disabled (`BASISD_SUPPORT_KTX2_ZSTD=0`).
+- **Native**: `cxx` FFI over the vendored `basis_universal` transcoder (git submodule, `v2_50`). Only the transcoder is compiled (`transcoder/basisu_transcoder.cpp`); the encoder is not. zstd-supercompressed KTX2 levels are supported via the vendored `zstddeclib.c` (`BASISD_SUPPORT_KTX2_ZSTD=1`).
 - **WASM**: the official prebuilt Emscripten transcoder (`basis_universal/webgl/transcoder`) is bundled by vite into self-contained ES modules (`javascript/index.es.js` + `javascript/core.es.js`): the wasm binary is inlined as a data URL. By default transcoding runs in a dedicated inline Web Worker (`transcode_ktx2`); `transcode_ktx2_local` runs the same transcode in the current context for hosts that already run inside their own worker. The bundles are committed and embedded into the Rust wasm via `include_str!`, then loaded at runtime through a Blob + dynamic `import()`. Consumers need no extra toolchain, file serving, or copy steps.
 
 The two implementations expose the same API; the crate switches between them with `cfg(target_arch = "wasm32")`.
@@ -46,7 +46,6 @@ let texture = transcode_ktx2_local(&ktx2_bytes, TargetFormat::Rgba32).await;
 ## Limitations
 
 - 2D textures only (layer 0, face 0).
-- No zstd-supercompressed KTX2 levels.
 - No HDR / video sources.
 
 ## Build
